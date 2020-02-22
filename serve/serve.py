@@ -14,8 +14,13 @@ def run(port=5000, static="static", dsn='mongodb://localhost:27017/',
     print(f"Serving static folder: {static_folder}")
 
     @app.route("/")
-    def hello():
-        return jsonify({"message": "hello world"})
+    def root():
+        # return app.send_static_file("index.html")
+        return app.send_static_file("index.html")
+
+    @app.route("/<path:filename>")
+    def static_proxy(filename):
+        return app.send_static_file(filename)
 
     @app.route("/api/quiz")
     def get_quiz_names():
@@ -27,24 +32,19 @@ def run(port=5000, static="static", dsn='mongodb://localhost:27017/',
 
     @app.route("/api/vocab/<id>")
     def get_vocab_by_id(id):
-        return jsonify(quiz.find_vocab_by_id(id))
+        vocab = quiz.find_vocab_by_id(id)
+        vocab['_id'] = str(vocab['_id'])
+        return jsonify(vocab)
 
-    @app.route("/api/voice/<title>")
-    def send_voice(title):
+    @app.route("/api/voice/<id>")
+    def send_voice(id):
+        vocab = quiz.find_vocab_by_id(id)
+        title = vocab['title']
         speed = 0.8
         if "speed" in request.args:
             speed = float(request.args['speed'])
         mp3_fp = quiz.get_voice_by_title(title, speed=speed)
         return send_file(mp3_fp, mimetype="audio/mpeg")
-
-    @app.route("/api/static/")
-    def root():
-        # return app.send_static_file("index.html")
-        return app.send_static_file("index.html")
-
-    @app.route("/api/static/<path:filename>")
-    def static_proxy(filename):
-        return app.send_static_file(filename)
 
     app.run(port=port)
 

@@ -46,9 +46,7 @@ class Quiz(DB):
         return [str(id) for id in ids]
 
     def find_vocab_by_id(self, id: str) -> Vocabulary:
-        return self.quiz_col.find_one({"_id": ObjectId(id)}, {
-            "_id": False
-        })
+        return self.quiz_col.find_one({"_id": ObjectId(id)})
 
     def get_voice_by_title(self, title: str, speed=0.6) -> io.BytesIO:
         fp = io.BytesIO()

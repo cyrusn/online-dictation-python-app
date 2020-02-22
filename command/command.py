@@ -1,7 +1,6 @@
 from argparse import ArgumentParser
 from configparser import ConfigParser
 from .import_quiz import add_argument as add_import_quiz_argument
-from .import_user import add_argument as add_import_user_argument
 from .serve import add_argument as add_serve_argument
 
 
@@ -37,9 +36,6 @@ def run():
     commands = [{
         "key": "serve",
         "add_argument_func": add_serve_argument
-    }, {
-        "key": "import_user",
-        "add_argument_func": add_import_user_argument
     }, {
         "key": "import_quiz",
         "add_argument_func": add_import_quiz_argument
