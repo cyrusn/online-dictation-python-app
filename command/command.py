@@ -30,9 +30,6 @@ def run():
         title='command', description='serve', dest='command'
     )
 
-    def get_config_with_keys(config, keys):
-        return {k: v for (k, v) in config.items() if k in keys}
-
     commands = [{
         "key": "serve",
         "add_argument_func": add_serve_argument

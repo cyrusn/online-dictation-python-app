@@ -1,7 +1,9 @@
 from serve.serve import run as run_serve
+from .helper import wait_until_connected
 
 
 def run(args):
+    wait_until_connected(args.dsn)
     run_serve(port=args.port, static=args.static,
               dsn=args.dsn, dbName=args.db_name)
 
