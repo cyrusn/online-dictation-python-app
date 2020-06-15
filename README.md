@@ -38,9 +38,3 @@
   }
 ]
 ```
-
-## Build for linux (Digital Ocean)
-
-GOOS=linux GOARCH=amd64 go build -o ./dictation_server main.go
-
-## Use JWT for authentication
