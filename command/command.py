@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from configparser import ConfigParser
 from .import_quiz import add_argument as add_import_quiz_argument
 from .serve import add_argument as add_serve_argument
+from .download_audio import add_argument as add_download_audio_argument
 
 
 def run():
@@ -13,7 +14,8 @@ def run():
         "port": '5000',
         "static": './static',
         "dsn": "mongodb://localhost:27017/",
-        "db_name": 'online_dictation_trial'
+        "db_name": 'online_dictation_trial',
+        "audio_path": '../public/data/audio'
     }
 
     if args.config is not None:
@@ -27,8 +29,11 @@ def run():
     )
 
     sub_command = parser.add_subparsers(
-        title='command', description='serve', dest='command'
+        title='command', description='choose the following command', dest='command'
     )
+
+    def get_config_with_keys(config, keys):
+        return {k: v for (k, v) in config.items() if k in keys}
 
     commands = [{
         "key": "serve",
@@ -36,6 +41,9 @@ def run():
     }, {
         "key": "import_quiz",
         "add_argument_func": add_import_quiz_argument
+    }, {
+        "key": 'download_audio',
+        "add_argument_func": add_download_audio_argument
     }]
 
     for command in commands:

@@ -2,12 +2,8 @@ from database.quiz import Quiz
 import json
 import os
 
-from .helper import wait_until_connected
-
 
 def run(args):
-    wait_until_connected(args.dsn)
-
     quiz = Quiz(args.db_name, args.dsn)
     quiz_name = os.path.basename(args.file).split(".")[0]
     print(f"importing quiz: {quiz_name}")

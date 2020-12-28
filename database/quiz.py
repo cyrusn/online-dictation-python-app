@@ -1,8 +1,6 @@
 import pymongo
 from bson.objectid import ObjectId
 from typing import TypedDict, List
-from gtts import gTTS
-import io
 
 from .db import DB
 
@@ -47,14 +45,6 @@ class Quiz(DB):
 
     def find_vocab_by_id(self, id: str) -> Vocabulary:
         return self.quiz_col.find_one({"_id": ObjectId(id)})
-
-    def get_voice_by_title(self, title: str, speed=0.6) -> io.BytesIO:
-        fp = io.BytesIO()
-        tts = gTTS(title, lang='en')
-        tts.speed = speed
-        tts.write_to_fp(fp)
-        fp.seek(0)
-        return io.BytesIO(fp.read())
 
 
 if __name__ == "__main__":

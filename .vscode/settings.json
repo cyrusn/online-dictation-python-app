@@ -1,8 +1,0 @@
-{
-  "python.linting.flake8Enabled": true,
-  "python.linting.pylintEnabled": false,
-  "python.linting.mypyEnabled": true,
-  "python.linting.enabled": true,
-  "python.pythonPath": "/Users/cyrusn/.local/share/virtualenvs/server-rC8b5Cs0/bin/python",
-  "python.formatting.provider": "autopep8"
-}
